@@ -9,8 +9,8 @@ anchor point with center sample, every box with different colors.
 ### Results  
 Train on 1 gtx1660 with 6G memory, in PASCAL VOC07 trainval and test dataset.I found centerness has less impact when imports center sample.You can download the trained weight in [Baidu driver link](https://pan.baidu.com/s/1aKO__bFwIL3-oip5y_Fr2g ), password: f4e5 and get the centerness weight, put them in checkpoint files and run evay.py. The without centerness weight in [Baidu driver link](https://pan.baidu.com/s/1YX0QhMEL2oyf42QuSwA4-g ), password: ksm8. You can set centerness in config.py.  
   
- :-------------------------------------: | :---    --------------: |
-|     centerness(512x640px)              |      67.6(IoU.5)        |
+ :-------------------------------------: | :---------------------: |  
+|     centerness(512x640px)              |      67.6(IoU.5)        |  
 |     without centerness(512x640px)      |      67.4(IoU.5)        |  
 
 ### Pretrained weight  
@@ -18,9 +18,9 @@ Download resnet50's weight from tensorflow's official model zoo.
 
 ### Train  
 Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels 1.xml, 2.xml, .... and the txt file shoud be  
-'<1  
+1  
 2  
-3 '> 
+3 
 Then config the config.py  
 Finally, Run train.py, Run '<tensorboard --logdir=F:\back_up\FCOS\checkpoint --host=127.0.0.1>' to get tensorboard, then you can check loss curves and detection results.  
 
