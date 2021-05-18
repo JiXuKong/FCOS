@@ -1,4 +1,4 @@
-# FCOS-Fully-Convolutional-One-Stage-Object-Detection
+# FCOS
 Tensorflow1.14  object detection  anchor free
 
 ####  implemented by tensorflow1.14  
