@@ -13,22 +13,29 @@ Train on 1 gtx1660 with 6G memory, in PASCAL VOC07 trainval and test dataset.I f
 |     centerness(512x640px)              |      67.6               |  
 |     without centerness(512x640px)      |      67.4               |  
 
+### detections  
+![](assets1/000166.jpg)  
+![](assets1/000191.jpg)  
+![](assets1/008998.jpg)  
 ### Pretrained weight  
 Download resnet50's weight from tensorflow's official model zoo.
 
 ### Train  
 Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels 1.xml, 2.xml, .... and the txt file shoud be  
-1  
-2  
-3 
+
+`1`  
+
+`2`  
+
+`3`  
 Then config the config.py  
-Finally, Run train.py, Run '<tensorboard --logdir=F:\back_up\FCOS\checkpoint --host=127.0.0.1>' to get tensorboard, then you can check loss curves and detection results.  
+Finally, Run train.py, Run `<tensorboard --logdir=F:\back_up\FCOS\checkpoint --host=127.0.0.1>` to get tensorboard, then you can check loss curves and detection results.  
 
 ### inference  
-Config the config.py about the ''val_restore_path'' Then config and run demo.py  
+Config the config.py about the `val_restore_path` Then config and run demo.py  
 
 ### evay  
-Config the config.py about the ''val_restore_path'' Then  run evay.py.Notice that batch size should setted as 1  
+Config the config.py about the  `val_restore_path` Then  run evay.py.Notice that batch size should setted as 1  
 
 ### Reference  
 I mainly refer [@zhenghao977](https://github.com/zhenghao977/FCOS-PyTorch-37.2AP) and convert (His/Her) some codes into tensorflow from pytorch.
