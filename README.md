@@ -21,13 +21,11 @@ Train on 1 gtx1660 with 6G memory, in PASCAL VOC07 trainval and test dataset.I f
 Download resnet50's weight from tensorflow's official model zoo.
 
 ### Train  
-Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels 1.xml, 2.xml, .... and the txt file shoud be  
+Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels `1.xml, 2.xml, ....` and the txt file shoud be  
 
-`1`  
-
-`2`  
-
-`3`  
+`1  
+2  
+3`  
 Then config the config.py  
 Finally, Run train.py, Run `<tensorboard --logdir=F:\back_up\FCOS\checkpoint --host=127.0.0.1>` to get tensorboard, then you can check loss curves and detection results.  
 
