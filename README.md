@@ -19,7 +19,7 @@ Train on 1 gtx1660 with 6G memory, in PASCAL VOC07 trainval and test dataset.I f
 ![](assets1/008998.jpg)  
 ### Pretrained weight  
 Download resnet50's weight from tensorflow's official model zoo.
-ResNet-50(http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz)  
+[ResNet-50](http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz )  
 
 ### Train  
 Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels `1.xml, 2.xml, ....` and the txt file shoud be  
