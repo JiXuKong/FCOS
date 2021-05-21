@@ -1,5 +1,6 @@
 import tensorflow as tf
 import cv2
+import matplotlib.pyplot as plt
 import copy
 from tensorflow.python import pywrap_tensorflow
 import numpy as np
@@ -10,8 +11,7 @@ from model import fcos
 from model import fpn_neck
 from model import head
 from model import loss
-from model.timer import Timer
-
+from model.tool.draw_box_in_img import STANDARD_COLORS
 
 slim = tf.contrib.slim
 
@@ -41,8 +41,10 @@ if restore_path is not None:
     
 if __name__ == '__main__':
     total_timer = Timer()
-    save_fpath = r'E:\FCOS\assets'
-    imgnm = './duche2.jpeg'
+    save_fpath = r'E:\FCOS\assets1'
+    
+    imgnm = r'F:\open_dataset\voc07+12\VOCdevkit\test\JPEGImages\008998.jpg'
+    save_path = os.path.join(save_fpath, imgnm.split("\\")[-1])
     img = cv2.imread(imgnm)
 
     y, x = img.shape[0:2]
@@ -50,17 +52,16 @@ if __name__ == '__main__':
     resize_scale_x = 1#x/cfg.image_size
     resize_scale_y = 1#y/cfg.image_size
     
-
     min_side, max_side    = cfg.image_size_h, cfg.image_size_w
     h, w, _  = img.shape
-        
+
+
     scale = min_side/h
     if scale*w>max_side:
         scale = max_side/w
     nw, nh  = int(scale * w), int(scale * h)
     print(nh, nw)
     image_resized = cv2.resize(img, (nw, nh))
-
     paded_w = (cfg.image_size_w - nw)//2
     paded_h = (cfg.image_size_h - nh)//2
 
@@ -68,7 +69,7 @@ if __name__ == '__main__':
     image_paded[paded_h:(paded_h+nh), paded_w:(paded_w+nw), :] = image_resized
     img = image_paded
     
-    img_orig = copy.deepcopy(img)
+    img_orig = copy.deepcopy(img[:,:,::-1])
     
     img=img[:,:,::-1]
     img=img.astype(np.float32, copy=False)
@@ -81,18 +82,23 @@ if __name__ == '__main__':
     feed_dict = {
         input_: img
                 }
+
     b, s, l = sess.run([nms_box, nms_score, nms_label], feed_dict = feed_dict)    
     pred_b = b.reshape(-1, 4)
     pred_s = s.reshape(-1,)
     pred_l = l.reshape(-1,)
+    plt.figure(figsize=(20,20))
+    plt.imshow(np.asarray(img_orig, np.uint8))
+    plt.axis('off') 
+    current_axis = plt.gca()
     for j in range(pred_b.shape[0]):
         if (pred_s[j]>=0.3):
             print(pred_l[j], pred_s[j])
             x1,y1, x2, y2 = pred_b[j][0]*resize_scale_x, pred_b[j][1]*resize_scale_y, pred_b[j][2]*resize_scale_x, pred_b[j][3]*resize_scale_y
-            cv2.rectangle(img_orig,(int(x1),int(y1)),(int(x2),int(y2)),(0,255,0),2)
-            cv2.putText(img_orig, str(cfg.classes[pred_l[j]+1]) + str(pred_s[j])[:5],(int(x1),int(y1)),cv2.FONT_HERSHEY_PLAIN,1,(255,255,255),1,1)
-    
-    img_orig = cv2.resize(img_orig, (640, 512))
-    cv2.imshow("x",img_orig)
-    cv2.waitKey(0)
-
+            cls_ = pred_l[j]+1
+            cls_name = str(cfg.classes[pred_l[j]+1])
+            color = STANDARD_COLORS[cls_]
+            current_axis.add_patch(plt.Rectangle((x1, y1), x2-x1, y2-y1, color=color, fill=False, linewidth=2))
+            current_axis.text(x1, y1, cls_name + str(pred_s[j])[:5], size='x-large', color='white', bbox={'facecolor':'green', 'alpha':0.5})
+    plt.savefig(save_path)
+    plt.show()
