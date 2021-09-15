@@ -4,10 +4,7 @@ import numpy as np
 import os, sys
 from data.pascal_voc import pascal_voc
 import config as cfg 
-from model import fcos
-from model import fpn_neck
-from model import head
-from model import loss
+from model import fcos,fpn_neck,head,loss
 from model.timer import Timer
 from model.tool import show_box_in_tensor
 
