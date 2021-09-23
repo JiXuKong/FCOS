@@ -22,7 +22,7 @@ Download resnet50's weight from tensorflow's official model zoo.
 [ResNet-50](http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz )  
 
 ### Train  
-Firstly, convert your lables into xml. Get the label names and write them into a txt file. For example, I get labels `1.xml, 2.xml, ....` and the txt file shoud be  
+Firstly, convert your lables into xml. Get the label names and write them into one txt file. For example, I get labels `1.xml, 2.xml, ....` and the txt file shoud be  
 
 `1`   
 `2`   
@@ -34,7 +34,7 @@ Finally, Run train.py, Run `<tensorboard --logdir=F:\back_up\FCOS\checkpoint --h
 Config the config.py about the `val_restore_path` Then config and run demo.py  
 
 ### evay  
-Config the config.py about the  `val_restore_path` Then  run evay.py.Notice that batch size should setted as 1  
+Config the config.py about the  `val_restore_path` Then  run evay.py. Notice that batch size should be setted as 1  
 
 ### Reference  
 I mainly refer [@zhenghao977](https://github.com/zhenghao977/FCOS-PyTorch-37.2AP) and convert (His/Her) some codes into tensorflow from pytorch.
