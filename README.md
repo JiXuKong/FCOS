@@ -33,8 +33,8 @@ Finally, Run train.py, Run `<tensorboard --logdir=F:\back_up\FCOS\checkpoint --h
 ### inference  
 Config the config.py about the `val_restore_path` Then config and run demo.py  
 
-### evay  
-Config the config.py about the  `val_restore_path` Then  run evay.py. Notice that batch size should be setted as 1  
+### eval  
+Config the config.py about the  `val_restore_path` Then  run eval.py. Notice that batch size should be setted as 1  
 
 ### Reference  
 I mainly refer [@zhenghao977](https://github.com/zhenghao977/FCOS-PyTorch-37.2AP) and convert (His/Her) some codes into tensorflow from pytorch.
