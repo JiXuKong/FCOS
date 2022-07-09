@@ -67,7 +67,7 @@ class DetectHead(object):
         for batch in range(cls_logits.get_shape().as_list()[0]):
             b = tf.expand_dims(boxes[batch], axis=0)
             s = tf.expand_dims(cls_preds[batch], axis=0)
-            nms_box, nms_score, nms_label = gpu_nms(b, s, 20, max_boxes=50, score_thresh=self.score_threshold, nms_thresh=self.nms_iou_threshold)
+            nms_box, nms_score, nms_label = gpu_nms(b, s, len(cfg.classes)-1, max_boxes=50, score_thresh=self.score_threshold, nms_thresh=self.nms_iou_threshold)
             _cls_scores.append(nms_score)
             _cls_classes.append(nms_label)
             _boxes.append(nms_box)
