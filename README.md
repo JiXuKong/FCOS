@@ -38,3 +38,13 @@ Config the config.py about the  `val_restore_path` Then  run eval.py. Notice tha
 
 ### Reference  
 I mainly refer [@zhenghao977](https://github.com/zhenghao977/FCOS-PyTorch-37.2AP) and convert (His/Her) some codes into tensorflow from pytorch.
+
+### TO DO  List  
+- [] Improve Data Prepare Pipeline  
+- [] COCO Results  
+- [] fp16 training  
+- [] Export .pb Model 
+- [] Export Trt Engine
+- [] And So On
+
+
