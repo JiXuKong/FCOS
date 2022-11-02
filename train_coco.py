@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow.python import pywrap_tensorflow
 import numpy as np
 import os, sys
-from data.pascal_voc import pascal_voc
+from data.coco_data import coco_data
 import config as cfg 
 from model import fcos,fpn_neck,head,loss
 from model.timer import Timer
@@ -10,7 +10,7 @@ from model.tool import show_box_in_tensor
 
 slim = tf.contrib.slim
 
-data = pascal_voc('train', False, cfg.train_img_path, cfg.train_label_path, cfg.train_img_txt, True)
+data = coco_data('train', False, cfg.train_img_path, cfg.train_label_path, True)
 
 
 input_ = tf.placeholder(tf.float32, shape = [cfg.batch_size, cfg.image_size_h, cfg.image_size_w, 3])
@@ -151,7 +151,7 @@ def train():
     total_timer = Timer()
     train_timer = Timer()
     load_timer = Timer()
-    max_epoch = 30
+    max_epoch = 16
     epoch_step = int(cfg.train_num//cfg.batch_size)
     t = 1
     for epoch in range(1, max_epoch + 1):
@@ -172,6 +172,7 @@ def train():
             load_timer.tic()
  
             images, labels, imnm, num_boxes, imsize = data.get()
+            # print(images.shape)
             
 #             load_timer.toc()
             feed_dict = {input_: images,

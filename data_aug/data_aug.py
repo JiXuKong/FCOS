@@ -38,9 +38,10 @@ class RandomHorizontalFlip(object):
     def __call__(self, img, bboxes):
             img_center = np.array(img.shape[:2])[::-1]/2
             img_center = np.hstack((img_center, img_center))
+            img_center = img_center.astype(np.float32)
             if random.random() < self.p:
                 img = img[:, ::-1, :]
-                bboxes[:, [0, 2]] += 2*(img_center[[0, 2]] - bboxes[:, [0, 2]])
+                bboxes[:, [0, 2]] = bboxes[:, [0, 2]] + 2*(img_center[[0, 2]] - bboxes[:, [0, 2]])
 
                 box_w = abs(bboxes[:, 0] - bboxes[:, 2])
 
@@ -465,9 +466,11 @@ class RandomRotate(object):
         scale_factor_y = img.shape[0] / h
     
         img = cv2.resize(img, (w,h))
-    
+        # print(new_bbox[:,:4], scale_factor_x)
+        # new_bbox[:,:4] = new_bbox[:,:4].astype(np.float32, copy=False)
+        # print(scale_factor_x.dtype)
         new_bbox[:,:4] /= [scale_factor_x, scale_factor_y, scale_factor_x, scale_factor_y] 
-    
+
         bboxes  = new_bbox
     
         bboxes = clip_box(bboxes, [0,0,w, h], 0.25)
